@@ -2,26 +2,26 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
 
-const API_URL = "http://localhost:5005";
+// const API_URL = "http://localhost:5005";
 
-function EditProjectPage(props) {
+function EditProductPage(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   
-  const { projectId } = useParams();
+  const { productId } = useParams();
   const navigate = useNavigate();
   
   useEffect(() => {
     axios
-      .get(`${API_URL}/api/projects/${projectId}`)
+      .get(`${API_URL}/api/products/${productId}`)
       .then((response) => {
-        const oneProject = response.data;
-        setTitle(oneProject.title);
-        setDescription(oneProject.description);
+        const oneProduct = response.data;
+        setTitle(oneProduct.title);
+        setDescription(oneProduct.description);
       })
       .catch((error) => console.log(error));
     
-  }, [projectId]);
+  }, [productId]);
   
 
   const handleFormSubmit = (e) => {
@@ -29,27 +29,27 @@ function EditProjectPage(props) {
     const requestBody = { title, description };
 
     axios
-      .put(`${API_URL}/api/projects/${projectId}`, requestBody)
+      .put(`${API_URL}/api/products/${productId}`, requestBody)
       .then((response) => {
-        navigate(`/projects/${projectId}`)
+        navigate(`/products/${productId}`)
       });
   };
   
   
-  const deleteProject = () => {
+  const deleteProduct = () => {
     
     axios
-      .delete(`${API_URL}/api/projects/${projectId}`)
+      .delete(`${API_URL}/api/products/${productId}`)
       .then(() => {
-        navigate("/projects");
+        navigate("/products");
       })
       .catch((err) => console.log(err));
   };  
 
   
   return (
-    <div className="EditProjectPage">
-      <h3>Edit the Project</h3>
+    <div className="EditProductPage">
+      <h3>Edit the product</h3>
 
       <form onSubmit={handleFormSubmit}>
         <label>Title:</label>
@@ -67,14 +67,14 @@ function EditProjectPage(props) {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <button type="submit">Update Project</button>
+        <button type="submit">Update product</button>
       </form>
 
-      <button onClick={deleteProject}>Delete Project</button>
+      <button onClick={deleteProduct}>Delete product</button>
     </div>
   );
 }
 
-export default EditProjectPage;
+export default EditProductPage;
 
 //need to change commit title
