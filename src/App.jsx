@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
+import ProductsPage from "./pages/ProductsPage";
+
 
 function App() {
   const getToken = () => {
@@ -27,6 +29,7 @@ function App() {
         <Route exact path="/" element={<HomePage />} />
 
         <Route element={<LoggedIn />}>
+        <Route path="/products" element={<ProductsPage />} />
 
 
 
