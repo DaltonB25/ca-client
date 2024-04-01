@@ -23,6 +23,9 @@ function Navbar() {
       {/*    UPDATE     */}
       {getToken() ? (
         <>
+        <Link to="/products">
+          <button>Products</button>
+        </Link>
           <button onClick={logOutUser}>Logout</button>
           {/* <span>{user && user.name}</span> */}
         </>
