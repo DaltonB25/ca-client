@@ -4,14 +4,14 @@ import { useContext, useEffect } from "react";
 
 
 
-function ProductCard ( { title, price, _id, handleDelete } ) {
+function ProductCard ( { title, price, _id, handleDelete, thumbnail } ) {
 
     return (
         <div className="product-card">
             <div className="product-image">
-                <img src={thumbnail} alt={image} />
+                <img src={thumbnail} alt={title} />
             </div>
-
+            <div className="product-title">{title}</div>
             <div className="price">{price}</div>
 
             <div className='product-btns'>
