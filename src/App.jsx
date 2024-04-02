@@ -7,7 +7,9 @@ import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import Header from "./components/Header";
-
+import CartPage from "./pages/CartPage";
+import UserProfilePage from "./pages/UserProfilePage";
+import Footer from "./components/Footer";
 
 function App() {
   const getToken = () => {
@@ -27,6 +29,7 @@ function App() {
     
       <Navbar />
       <Header />
+      <Footer />
 
       <Routes>
         <Route exact path="/" element={<HomePage />} />
@@ -34,8 +37,8 @@ function App() {
         <Route element={<LoggedIn />}>
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:productId" element={<ProductDetailsPage />} />
-
-
+        <Route path="/carts" component={<CartPage />} />
+        <Route path="/users/:userId" element={<UserProfilePage />} />
         </Route>
 
         <Route element={<NotLoggedIn />}>
