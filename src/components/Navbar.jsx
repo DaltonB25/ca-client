@@ -15,29 +15,29 @@ function Navbar() {
   //  Update the rendering logic to display different content
   //  depending on whether the user is logged in or not
   return (
-    <nav>
+    <nav className="bg-gray-600 fixed w-screen top-0 mb-4 h-16 flex justify-start p-5  ">
       <Link to="/">
-        <button>Home</button>
+        <button className="text-white pr-5">Home</button>
       </Link>
 
       {/*    UPDATE     */}
       {getToken() ? (
         <>
         <Link to="/products">
-          <button>Products</button>
+          <button className="text-white pr-5">Products</button>
         </Link>
-          <button onClick={logOutUser}>Logout</button>
+          <button className="text-white pr-5" onClick={logOutUser}>Logout</button>
           {/* <span>{user && user.name}</span> */}
         </>
       ) : (
         <>
           <Link to="/signup">
             {" "}
-            <button>Sign Up</button>{" "}
+            <button className="text-white pr-5">Sign Up</button>{" "}
           </Link>
           <Link to="/login">
             {" "}
-            <button>Login</button>{" "}
+            <button className="text-white pr-5">Login</button>{" "}
           </Link>
         </>
       )}

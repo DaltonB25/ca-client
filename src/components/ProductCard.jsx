@@ -1,39 +1,24 @@
+import { Link } from 'react-router-dom';
 
-import { Link } from 'react-router-dom'
-import { useContext, useEffect } from "react";
-
-
-
-function ProductCard ( { title, price, _id, handleDelete, thumbnail } ) {
-
+function ProductCard({ title, price, _id, thumbnail }) {
     return (
-        <div className="product-card">
+        <div className="flex flex-col items-center justify-between border-2 border-solid border-gray-200 w-2/12 m-5 bg-white shadow-md rounded-lg p-4">
             <div className="product-image">
-                <img src={thumbnail} alt={title} />
+                <img src={thumbnail} alt={title} className="w-full h-auto" />
             </div>
-            <div className="product-title">{title}</div>
-            <div className="price">{price}</div>
+            <div className="product-title text-sm font-semibold text-black mt-2 mb-2">{title}</div>
 
-            <div className='product-btns'>
-                <button onClick={() => handleDelete(_id)}>Delete</button>
-                <Link to = {`/products/${_id}`}>
-                    <button>Details</button>           
-                </Link>
+            <div className="flex justify-between w-full mt-auto">
+                <div className="text-black font-semibold ">${price}</div>
+
+                <div className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 border border-black rounded-lg">
+                    <Link to={`/products/${_id}`} className="text-white">
+                        Details
+                    </Link>
+                </div>
             </div>
         </div>
-    )
-
-    
+    );
 }
 
 export default ProductCard;
-
-// title: String,
-// description: String,
-// price: Number,
-// rating: Number,
-// stock: Number,
-// brand: String,
-// category: String,
-// thumbnail: String,
-// images: Array,
