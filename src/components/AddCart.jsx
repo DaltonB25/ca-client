@@ -1,54 +1,37 @@
+import { useState } from "react";
 
-    import { useState } from "react";
+import { post } from "../services/authService";
+import { useParams } from "react-router-dom";
 
-    import { post } from "../services/authService";
-    
-    function AddCart({ refreshProducts }) {
-      const [title, setTitle] = useState("");
-      const [description, setDescription] = useState("");
-    
-    
-      const handleSubmit = (e) => {
+function AddCart({}) {
+  const { productId, cartId } = useParams;
+
+  const [cart, setCart] = useState(null);
+
+    const addProductToCart = () => {
+    post(`/carts/add/${productId}/${cartId}`)
+      .then((response) => {
+        setCart(response.data);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    addProductToCart();
+  }, []);
+
+  return (
+    <div className="AddProduct">
+      <h3>Add Product</h3>
+      {/* Moved the button inside a form to trigger handleSubmit */}
+      <form onSubmit={(e) => {
         e.preventDefault();
-    
-        const requestBody = { title, description };
-        
-        post('/carts/add/:productId/:cartId', requestBody)
-          .then((response) => {
-            // Reset the state
-            setTitle("");
-            setDescription("");
-            refreshProducts();
-          })
-          .catch((error) => console.log(error));
-      };
-    
-    
-      return (
-        <div className="AddProduct">
-          <h3>Add Product</h3>
-    
-          <form onSubmit={handleSubmit}>
-            <label>Title:</label>
-            <input
-              type="text"
-              name="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-    
-            <label>Description:</label>
-            <textarea
-              type="text"
-              name="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-    
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-      );
-    }
-    
-export default AddCart
+        addProductToCart();
+      }}>
+        <button type="submit">Add to Cart</button>
+      </form>
+    </div>
+  );
+}
+
+export default AddCart;
