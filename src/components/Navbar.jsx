@@ -26,6 +26,12 @@ function Navbar() {
         <Link to="/products">
           <button className="text-white pr-5">Products</button>
         </Link>
+        <Link to="/carts/`${cartId}`">
+        <button className="text-white pr-5">Cart</button>
+        </Link>
+        <Link to="/users">
+        <button className="text-white pr-5">Profile</button>
+        </Link>
           <button className="text-white pr-5" onClick={logOutUser}>Logout</button>
           {/* <span>{user && user.name}</span> */}
         </>
