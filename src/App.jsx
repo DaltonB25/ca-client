@@ -5,6 +5,8 @@ import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import ProductsPage from "./pages/ProductsPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+import Header from "./components/Header";
 
 
 function App() {
@@ -24,13 +26,14 @@ function App() {
     <div className="App">
     
       <Navbar />
+      <Header />
 
       <Routes>
         <Route exact path="/" element={<HomePage />} />
 
         <Route element={<LoggedIn />}>
         <Route path="/products" element={<ProductsPage />} />
-
+        <Route path="/products/:productId" element={<ProductDetailsPage />} />
 
 
         </Route>
