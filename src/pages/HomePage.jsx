@@ -1,12 +1,17 @@
-function HomePage() {
-  return (
-    <div className="">
+import React from 'react';
 
-    <div className="text-black text-center inset-40">
-      <h1>Home Page ECOM </h1>
+const HomePage = () => {
+  return (
+    <div className="bg-gray-100 min-h-screen">
+      <header className="bg-gray-800 text-white py-4 px-8">
+        <h1 className="text-3xl font-bold">Welcome to My Electronic E-Commerce Store</h1>
+      </header>
+
+      
+
+    
     </div>
-   </div>
   );
-}
+};
 
 export default HomePage;
