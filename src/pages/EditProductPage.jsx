@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from "axios";
-
+import { get } from "../services/authService";
 
 function EditProductPage(props) {
   const [title, setTitle] = useState("");
@@ -11,8 +11,7 @@ function EditProductPage(props) {
   const navigate = useNavigate();
   
   useEffect(() => {
-    axios
-      .get(`${API_URL}/api/products/${productId}`)
+       get(`/products/${productId}`)
       .then((response) => {
         const oneProduct = response.data;
         setTitle(oneProduct.title);
@@ -76,4 +75,3 @@ function EditProductPage(props) {
 
 export default EditProductPage;
 
-//need to change commit title
