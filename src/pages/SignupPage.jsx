@@ -30,26 +30,27 @@ function SignupPage() {
     setNewUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSignupSubmit = (e) => {
+
+
+
+  const handleSignupSubmit = async (e) => {
     e.preventDefault();
 
-    post("/auth/signup", newUser)
-      .then((response) => {
-        console.log("This is the new user ===>", response.data);
-        storeToken(response.data.authToken);
-        authenticateUser();
-        navigate("/");
+    try {
+      const response = await post("/auth/signup", newUser)
+      storeToken(response.data.authToken);
+      authenticateUser();
+      await post("/carts/add")
+    } catch (error) {
+      console.log(error)
+      setErrorMessage(err.response.data.message);
+      setNewUser({
+        email: "",
+        password: "",
+        name: "",
       })
-      .catch((err) => {
-        console.log(err);
-        setErrorMessage(err.response.data.message);
-        setNewUser({
-            email: "",
-            password: "",
-            name: "",
-          })
-      });
-  };
+    }
+  }
 
   return (
     <div className="SignupPage">
