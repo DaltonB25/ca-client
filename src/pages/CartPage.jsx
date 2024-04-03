@@ -9,7 +9,7 @@ function CartPage() {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await get(`/carts/${cartId}`);
+        const response = await get(`/carts/${cart._id}`);
         if (response.data && response.data.items) {
           setCartItems(response.data.items);
         } else {
