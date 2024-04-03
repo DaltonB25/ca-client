@@ -49,7 +49,7 @@ function LoginPage() {
   return (
     <div className="flex justify-center items-center h-screen">
 
-    <div className="flex flex-col items-center border-2 border-solid border-black w-96 m-10 p-5 rounded-lg bg-gray-200">
+    <div className="flex flex-col items-center border-2 border-solid border-black w-96 m-10 p-10 rounded-lg bg-gray-200">
     <h1 className="mb-3">Login</h1>
 
       <form onSubmit={handleLoginSubmit} className="flex flex-col items-center w-full">
