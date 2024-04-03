@@ -23,7 +23,6 @@ function AddCart({}) {
   return (
     <div className="AddProduct">
       <h3>Add Product</h3>
-      {/* Moved the button inside a form to trigger handleSubmit */}
       <form onSubmit={(e) => {
         e.preventDefault();
         addProductToCart();
