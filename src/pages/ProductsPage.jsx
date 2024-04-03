@@ -31,11 +31,6 @@ function ProductsPage() {
 
   return (
     <div className="flex flex-row flex-wrap m-16 ml-44">
-   
-      {/* <div className="text-center items-center h-4 m-1">
-        <span style={{ flexBasis: "25%" }}>product</span>
-      </div> */}
-
       {products.length > 0 &&
         products.map(
           (product, index) => (
