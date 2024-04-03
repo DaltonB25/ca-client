@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { get } from "../services/authService";
 import { AuthContext } from "../context/auth.context";
+import { useParams } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -9,15 +10,16 @@ const API_URL = import.meta.env.VITE_API_URL;
 function UserProfilePage() {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { user } = useContext(AuthContext);
+  const { userId } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  // const { userId } = useParams();
 
   useEffect(() => {
     const getUser = () => {
       const storedToken = localStorage.getItem("authToken");
 
       if (storedToken) {
-        get(`/users/${user._id}`,
+        get(`/users/${userId}`,
           { headers: { Authorization: `Bearer ${storedToken}` }}
           )
           .then((response) => {
@@ -35,18 +37,17 @@ function UserProfilePage() {
     };
 
     getUser();
-  }, [user._id]);
+  }, [userId]);
 
   if (errorMessage) return <div>{errorMessage}</div>;
   
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="StudentDetailsPage bg-gray-100 py-6 px-4">
+    <div className="UserDetailsPage bg-gray-100 py-6 px-4">
       <div className="bg-white p-8 rounded-lg shadow-md mb-6">
         {userProfile && (
           <>
-            {/* <img className="w-32 h-32 rounded-full object-cover mb-4" src={student.image} alt="profile-photo" /> */}
             <img
             src={placeholderImage}
             alt="profile-photo"
