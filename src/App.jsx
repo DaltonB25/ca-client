@@ -25,7 +25,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="overflow-y-hidden">
     
       <Navbar />
       <Header />
@@ -37,7 +37,7 @@ function App() {
         <Route element={<LoggedIn />}>
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:productId" element={<ProductDetailsPage />} />
-        <Route path="/carts" component={<CartPage />} />
+        <Route path="/carts/:cartId" element={<CartPage />} />
         <Route path="/users/:userId" element={<UserProfilePage />} />
         </Route>
 
