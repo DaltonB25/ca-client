@@ -12,7 +12,7 @@ function CartProvider({ children }) {
     const fetchCart = async () => {
       try {
         const response = await get("/carts");
-        setCart(response.data[0])
+        setCart(response.data)
       } catch (error) {
         console.log(error);
       }
