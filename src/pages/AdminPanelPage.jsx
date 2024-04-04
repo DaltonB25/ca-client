@@ -1,8 +1,11 @@
-import React from 'react'
+
+import AddProduct from '../components/AddProduct'
 
 const AdminPanelPage = () => {
   return (
-    <div>AdminPanelPage</div>
+    <div>AdminPanelPage
+      <AddProduct />
+    </div>
   )
 }
 
