@@ -12,6 +12,7 @@ function AuthProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [admin, setAdmin] = useState(false);
 
   const navigate = useNavigate()
 
@@ -43,10 +44,15 @@ function AuthProvider({ children }) {
         .then((response) => {
           // If the server verifies that the JWT token is valid
           const user = response.data;
+
+          if (user.type == "Admin") {
+            setAdmin(true)
+          } 
           // Update state variables
           setIsLoggedIn(true);
           setIsLoading(false);
           setUser(user);
+
         })
         .catch((error) => {
           // If the server sends an error response (invalid token)
@@ -55,12 +61,14 @@ function AuthProvider({ children }) {
           setIsLoggedIn(false);
           setIsLoading(false);
           setUser(null);
+          setAdmin(false);
         });
     } else {
       // If the token is not available (or is removed)
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
+      setAdmin(false);
     }
   };
 
@@ -83,6 +91,7 @@ function AuthProvider({ children }) {
         isLoggedIn,
         isLoading,
         user,
+        admin,
         storeToken,
         authenticateUser,
         logOutUser,
