@@ -48,7 +48,7 @@ function AddProduct( ) {
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6 w-1/2 mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Edit Product</h1>
+      <h1 className="text-3xl font-bold mb-4">Add Product</h1>
       <form onSubmit={handleSubmit} className="space-y-4 border border-gray-300 p-4 rounded-md">
         <label className="block text-gray-700">Title:</label>
         <input
@@ -135,7 +135,7 @@ function AddProduct( ) {
           type="submit"
           className="w-full bg-blue-500 text-white rounded-md py-2 hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
         >
-          Edit Product
+          Add Product
         </button>
       </form>
     </div>
