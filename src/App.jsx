@@ -10,6 +10,10 @@ import Header from "./components/Header";
 import CartPage from "./pages/CartPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import Footer from "./components/Footer";
+import AddProduct from "./components/AddProduct";
+import AddProductPage from "./pages/AddProductPage";
+import EditProductPage from "./pages/EditProductPage";
+import AdminPanelPage from "./pages/AdminPanelPage";
 
 function App() {
   const getToken = () => {
@@ -35,10 +39,15 @@ function App() {
         <Route exact path="/" element={<HomePage />} />
 
         <Route element={<LoggedIn />}>
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/products/:productId" element={<ProductDetailsPage />} />
-        <Route path="/carts/:cartId" element={<CartPage />} />
-        <Route path="/users/:userId" element={<UserProfilePage />} />
+
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/products/:productId" element={<ProductDetailsPage />} />
+          <Route path="/carts/:cartId" element={<CartPage />} />
+          <Route path="/profile" element={<UserProfilePage />} />
+          <Route path="/products/AddProduct" element={<AddProductPage />} />
+          <Route path="/products/edit/:productId" element={<EditProductPage />} />
+          <Route path='/admin-panel' element={<AdminPanelPage />} />
+
         </Route>
 
         <Route element={<NotLoggedIn />}>
