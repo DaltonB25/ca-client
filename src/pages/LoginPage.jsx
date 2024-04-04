@@ -38,7 +38,11 @@ function LoginPage() {
         console.log("Login response ===>", response.data);
         storeToken(response.data.authToken);
         authenticateUser();
-        navigate("/");
+        if (response.data.user.type == "Admin") {
+          navigate('/admin-panel')
+        } else {
+          navigate("/"); 
+        }
       })
       .catch((error) => {
         const errorDescription = error.response.data.message;
@@ -47,39 +51,40 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-96">
+        <h1 className="mb-8 text-center text-2xl">Login</h1>
 
-    <div className="flex flex-col items-center border-2 border-solid border-black w-96 m-10 p-10 rounded-lg bg-gray-200">
-    <h1 className="mb-3">Login</h1>
+        <form onSubmit={handleLoginSubmit} className="space-y-4">
+          <div>
+            <label className="block text-gray-700">Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={thisUser.email}
+              onChange={handleTextChange}
+              className="w-full border border-gray-300 rounded-md p-2"
+            />
+          </div>
 
-      <form onSubmit={handleLoginSubmit} className="flex flex-col items-center w-full">
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={thisUser.email}
-          onChange={handleTextChange}
-          className="w-full border border-gray-400 rounded-md mb-2 p-1"
-        />
+          <div>
+            <label className="block text-gray-700">Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={thisUser.password}
+              onChange={handleTextChange}
+              className="w-full border border-gray-300 rounded-md p-2"
+            />
+          </div>
 
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={thisUser.password}
-          onChange={handleTextChange}
-          className="w-full border border-gray-400 rounded-md mb-2 p-1"
-        />
+          <button type="submit" className="w-full bg-blue-500 text-white rounded-md py-2 hover:bg-blue-700">Login</button>
+        </form>
 
-        <button type="submit" className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-700">
-          Login
-        </button>
-      </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
 
-      <p>Don't have an account yet?</p>
-      <Link to="/signup" className="text-blue-500 hover:underline">Sign Up</Link>
-    </div>
+        <p className="mt-4">Don't have an account yet? <Link to="/signup" className="text-blue-500 hover:underline">Sign Up</Link></p>
+      </div>
     </div>
   );
 }
