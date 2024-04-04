@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/auth.context";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 import { axiosDelete, get, post, put } from "../services/authService";
 import { CartContext } from "../context/cart.context";
@@ -10,10 +10,14 @@ function ProductDetailsPage(props) {
   const { productId, cartId } = useParams();
   const [rating, setRating] = useState(0);
   const { cart, setCart } = useContext(CartContext);
+  const { admin } = useContext(AuthContext)
+
+  const navigate = useNavigate()
 
   const getProduct = () => {
     get(`/products/${productId}`)
       .then((response) => {
+        console.log("THIS IS OUR PRODUCT===>", response.data)
         setProduct(response.data);
       })
       .catch((error) => console.log(error));
@@ -50,6 +54,10 @@ function ProductDetailsPage(props) {
       });
   };
 
+  const handleEditRedirect = (id) => {
+    navigate(`/products/edit/${id}`)
+  }
+
   useEffect(() => {
     getProduct();
   }, []);
@@ -63,6 +71,14 @@ function ProductDetailsPage(props) {
       </Link>
       {product && (
         <div>
+          {
+            admin &&
+
+            <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold mt-1 py-2 px-4 border border-black rounded-lg"
+            onClick={() => handleEditRedirect(product._id)}>Edit Product
+            </button>
+
+          }
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white shadow-lg rounded-lg overflow-hidden relative mt-8 ">
               <img
@@ -153,6 +169,7 @@ function ProductDetailsPage(props) {
               </button>
             </form>
           </div>
+
         </div>
       )}
     </div>
