@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 function ProductCard({ title, price, _id, thumbnail }) {
     return (
         <div className="flex flex-col items-center justify-between border-2 border-solid border-gray-200 w-2/12 m-5 bg-white shadow-md rounded-lg p-4">
-            <div className="product-image">
+            <div className="product-image items-center">
                 <img src={thumbnail} alt={title} className="w-full h-auto" />
             </div>
             <div className="product-title text-sm font-semibold text-black mt-2 mb-2">{title}</div>
