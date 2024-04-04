@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   const productsToShowcase = [
@@ -43,6 +44,16 @@ const HomePage = () => {
             </div>
           ))}
         </div>
+        <div className="container mx-auto mt-8 flex justify-center">
+          <div className="bg-white shadow-md rounded-lg p-4 w-full md:w-2/3 text-center">
+            <p className="text-xl font-bold mb-4">See all my products here!</p>
+            
+            <Link to="/products" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full inline-block">
+              Shop Now
+            </Link>
+          </div>
+        </div>
+
       </div>
     </div>
   );
