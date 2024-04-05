@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../context/cart.context";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function CartPage() {
   const [cartItems, setCartItems] = useState([]);
@@ -61,6 +62,12 @@ function CartPage() {
             </div>
           ))}
       </div>
+      <Link to="/checkout" className="absolute bottom-16 right-4 z-10">
+
+        <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold mt-5 py-2 px-4 border border-black rounded-lg">
+          Place Order
+        </button>
+      </Link>
     </div>
   );
 }

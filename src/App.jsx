@@ -14,6 +14,9 @@ import AddProduct from "./components/AddProduct";
 import AddProductPage from "./pages/AddProductPage";
 import EditProductPage from "./pages/EditProductPage";
 import AdminPanelPage from "./pages/AdminPanelPage";
+import CheckOutPage from "./pages/CheckOutPage";
+
+
 
 function App() {
   const getToken = () => {
@@ -28,8 +31,10 @@ function App() {
     return !getToken() ? <Outlet /> : <Navigate to="/" />;
   };
 
+
+
   return (
-    <div className="overflow-y-hidden">
+    <div className="">
     
       <Navbar />
       <Header />
@@ -47,6 +52,7 @@ function App() {
           <Route path="/products/AddProduct" element={<AddProductPage />} />
           <Route path="/products/edit/:productId" element={<EditProductPage />} />
           <Route path='/admin-panel' element={<AdminPanelPage />} />
+          <Route path='/checkout' element={<CheckOutPage />} />
 
         </Route>
 
@@ -62,5 +68,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

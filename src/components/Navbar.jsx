@@ -1,25 +1,39 @@
-// src/components/Navbar.jsx
-
 import { Link } from "react-router-dom";
-import { useContext } from "react"; // <== IMPORT
-import { AuthContext } from "../context/auth.context"; // <== IMPORT
+import { useState, useContext, useEffect, useRef } from "react";
+import { AuthContext } from "../context/auth.context";
 import { CartContext } from "../context/cart.context";
 
 import cartIcon from "../images/cart.png";
-import AdminPanelPage from "../pages/AdminPanelPage";
+import profileIcon from "../images/avatar.png";
 
 function Navbar() {
-  // Subscribe to the AuthContext to gain access to
-  // the values from AuthContext.Provider `value` prop
-  const { isLoggedIn, user, logOutUser, admin } = useContext(AuthContext); // <== ADD
-
-  const { cart } = useContext(CartContext)
+  const { isLoggedIn, user, logOutUser, admin } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const getToken = () => {
     return localStorage.getItem("authToken");
   };
-  //  Update the rendering logic to display different content
-  //  depending on whether the user is logged in or not
+
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <nav className="bg-gray-600 fixed w-screen top-0 mb-4 h-16 flex justify-between items-center p-5">
       <div className="flex items-center">
@@ -31,52 +45,58 @@ function Navbar() {
             <button className="text-white pr-5">Shop</button>
           </Link>
         )}
-        {getToken() && user && (
-          <Link to='/profile'>
-            <button className="text-white pr-5">Profile</button>
-          </Link>
-        )}
         {getToken() && admin && (
-          <Link to='/products/AddProduct'>
+          <Link to="/products/AddProduct">
             <button className="text-white pr-5">Add Product</button>
           </Link>
         )}
-        {getToken() && (
+        {/* {getToken() && (
           <button className="text-white pr-5" onClick={logOutUser}>
             Logout
           </button>
-        )}
+        )} */}
       </div>
 
-        {getToken() && cart &&
-          <div className="relative">
-           <Link to={`/carts/${cart._id}`}>
-            <img src={cartIcon} alt="Cart" className="h-8 w-8 mr-3" />
-           </Link>
-         </div>
-        
-         
-        }
+      <div className="flex items-center relative" ref={dropdownRef}>
+        {getToken() && cart && (
+          <div className="mr-3">
+            <Link to={`/carts/${cart._id}`}>
+              <img src={cartIcon} alt="Cart" className="h-8 w-8" />
+            </Link>
+          </div>
+        )}
 
-         <>
-         
-            {
-                !getToken() &&
-                <div>
-                  <Link to="/signup">
-                    <button className="text-white pr-5">Sign Up</button>
-                  </Link>
-                  <Link to="/login">
-                    <button className="text-white pr-5">Login</button>
-                  </Link>
-                </div>
+        {getToken() && user && (
+          <div className="relative mr-5 mt-1">
+            <button className="focus:outline-none" onClick={handleDropdownToggle}>
+              <img src={profileIcon} alt="Profile" className="h-8 w-8 cursor-pointer" />
+            </button>
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg">
+                <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
+                  Profile
+                </Link>
+                <button className="block px-4 py-2 hover:bg-gray-100 w-full text-left" onClick={logOutUser}>
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
-            }
-
-         </>
-
-      
+        {!getToken() && (
+          <div>
+            <Link to="/signup">
+              <button className="text-white pr-5">Sign Up</button>
+            </Link>
+            <Link to="/login">
+              <button className="text-white pr-5">Login</button>
+            </Link>
+          </div>
+        )}
+      </div>
     </nav>
   );
 }
+
 export default Navbar;
