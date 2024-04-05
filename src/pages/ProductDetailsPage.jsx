@@ -25,7 +25,7 @@ function ProductDetailsPage(props) {
 
   const changeQuantity = async (operand) => {
     try {
-      let currentQuantity = cart.products.find(element => element.product === product._id).quantity
+      let currentQuantity = cart.products.find(element => element.product._id === product._id).quantity
       operand === "minus" ? currentQuantity === 1 ? currentQuantity -= 1 : currentQuantity -= 1 : currentQuantity += 1
       
       console.log(currentQuantity)
@@ -61,6 +61,9 @@ function ProductDetailsPage(props) {
   useEffect(() => {
     getProduct();
   }, []);
+  useEffect(() => {
+   console.log("cart in prod details 🎉🌹", cart)
+  }, [cart]);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -117,13 +120,13 @@ function ProductDetailsPage(props) {
               {cart &&
               cart.products.length &&
               cart.products.find(
-                (element) => element.product === product._id
+                (element) => element.product._id === product._id
               ) ? (
                 <>
                   <button onClick={() => changeQuantity("plus")}> + </button>
                   <span>
                     {cart.products.find(
-                      (element) => element.product === product._id
+                      (element) => element.product._id === product._id
                     ).quantity}
                   </span>
                   <button onClick={() => changeQuantity("minus")}> - </button>
