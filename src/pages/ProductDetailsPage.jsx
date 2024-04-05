@@ -10,14 +10,14 @@ function ProductDetailsPage(props) {
   const { productId, cartId } = useParams();
   const [rating, setRating] = useState(0);
   const { cart, setCart } = useContext(CartContext);
-  const { admin } = useContext(AuthContext)
+  const { admin } = useContext(AuthContext);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const getProduct = () => {
     get(`/products/${productId}`)
       .then((response) => {
-        console.log("THIS IS OUR PRODUCT===>", response.data)
+        console.log("THIS IS OUR PRODUCT===>", response.data);
         setProduct(response.data);
       })
       .catch((error) => console.log(error));
@@ -25,29 +25,36 @@ function ProductDetailsPage(props) {
 
   const changeQuantity = async (operand) => {
     try {
-      let currentQuantity = cart.products.find(element => element.product._id === product._id).quantity
-      operand === "minus" ? currentQuantity === 1 ? currentQuantity -= 1 : currentQuantity -= 1 : currentQuantity += 1
-      
-      console.log(currentQuantity)
+      let currentQuantity = cart.products.find(
+        (element) => element.product._id === product._id
+      ).quantity;
+      operand === "minus"
+        ? currentQuantity === 1
+          ? (currentQuantity -= 1)
+          : (currentQuantity -= 1)
+        : (currentQuantity += 1);
 
-      if(currentQuantity !== 0){
-        const response =  await put("/carts/update-quantity/" + product._id, {quantity: currentQuantity})
-        setCart(response.data)
-      }else {
-        const response = await axiosDelete("/carts/" + product._id )
-        setCart(response.data)
+      console.log(currentQuantity);
+
+      if (currentQuantity !== 0) {
+        const response = await put("/carts/update-quantity/" + product._id, {
+          quantity: currentQuantity,
+        });
+        setCart(response.data);
+      } else {
+        const response = await axiosDelete("/carts/" + product._id);
+        setCart(response.data);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-
+  };
 
   const addToCart = () => {
     console.log(cart);
     post(`/carts/add/${productId}/${cart._id}`, { quantity: 1 })
       .then((response) => {
-        setCart(response.data)
+        setCart(response.data);
       })
       .catch((error) => {
         console.log("Error adding product to cart:", error);
@@ -55,33 +62,35 @@ function ProductDetailsPage(props) {
   };
 
   const handleEditRedirect = (id) => {
-    navigate(`/products/edit/${id}`)
-  }
+    navigate(`/products/edit/${id}`);
+  };
 
   useEffect(() => {
     getProduct();
   }, []);
   useEffect(() => {
-   console.log("cart in prod details 🎉🌹", cart)
+    console.log("cart in prod details 🎉🌹", cart);
   }, [cart]);
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <Link to="/products" className="absolute top-16 left-4 z-10">
-        <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold mt-5 py-2 px-4 border border-black rounded-lg">
-          Back to Products
-        </button>
-      </Link>
+      <div className="flex items-center justify-between mb-4 md:mb-0">
+        <Link to="/products">
+          <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold mt-5 py-2 px-4 border border-black rounded-lg md:mt-1 md:py-1 md:px-2">
+            Back to Products
+          </button>
+        </Link>
+        {admin && (
+          <button
+            className="bg-gray-600 hover:bg-gray-700 text-white font-bold mt-1 py-2 px-4 border border-black rounded-lg md:mt-1 md:py-1 md:px-2"
+            onClick={() => handleEditRedirect(product._id)}
+          >
+            Edit Product
+          </button>
+        )}
+      </div>
       {product && (
         <div>
-          {
-            admin &&
-
-            <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold mt-1 py-2 px-4 border border-black rounded-lg"
-            onClick={() => handleEditRedirect(product._id)}>Edit Product
-            </button>
-
-          }
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-white shadow-lg rounded-lg overflow-hidden relative mt-8 ">
               <img
@@ -122,15 +131,27 @@ function ProductDetailsPage(props) {
               cart.products.find(
                 (element) => element.product._id === product._id
               ) ? (
-                <>
-                  <button onClick={() => changeQuantity("plus")}> + </button>
-                  <span>
-                    {cart.products.find(
-                      (element) => element.product._id === product._id
-                    ).quantity}
+                <div className="flex items-center">
+                  <button
+                    onClick={() => changeQuantity("minus")}
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l"
+                  >
+                    -
+                  </button>
+                  <span className="bg-gray-100 py-2 px-4">
+                    {
+                      cart.products.find(
+                        (element) => element.product._id === product._id
+                      ).quantity
+                    }
                   </span>
-                  <button onClick={() => changeQuantity("minus")}> - </button>
-                </>
+                  <button
+                    onClick={() => changeQuantity("plus")}
+                    className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r"
+                  >
+                    +
+                  </button>
+                </div>
               ) : (
                 <button
                   className="bg-gray-600 hover:bg-gray-700 text-white font-bold mt-5 py-2 px-4 border border-black rounded-lg"
@@ -172,10 +193,10 @@ function ProductDetailsPage(props) {
               </button>
             </form>
           </div>
-
         </div>
       )}
     </div>
   );
 }
+
 export default ProductDetailsPage;
