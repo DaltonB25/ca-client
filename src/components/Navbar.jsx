@@ -5,6 +5,7 @@ import { CartContext } from "../context/cart.context";
 
 import cartIcon from "../images/cart.png";
 import profileIcon from "../images/avatar.png";
+import storeIcon from "../images/online-shopping-icon.webp"
 
 function Navbar() {
   const { isLoggedIn, user, logOutUser, admin } = useContext(AuthContext);
@@ -46,7 +47,7 @@ function Navbar() {
           </Link>
         )}
         {getToken() && admin && (
-          <Link to="/products/AddProduct">
+          <Link to="/admin-panel">
             <button className="text-white pr-5">Add Product</button>
           </Link>
         )}
@@ -57,7 +58,14 @@ function Navbar() {
         )} */}
       </div>
 
-      <div className="flex items-center relative" ref={dropdownRef}>
+      {/* Store Icon - Centered */}
+      <div className="flex items-center justify-center">
+        <Link to="/">
+          <img src={storeIcon} alt="Store" className="h-10 w-15 cursor-pointer mr-4" />
+        </Link>
+      </div>
+
+      <div className="flex items-center justify-end">
         {getToken() && cart && (
           <div className="mr-3">
             <Link to={`/carts/${cart._id}`}>
