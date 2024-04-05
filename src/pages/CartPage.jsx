@@ -30,8 +30,8 @@ function CartPage() {
     <div className="cart-page bg-gray-100 py-8 px-4">
       <h1 className="text-3xl font-bold mb-4">Shopping Cart</h1>
       <div className="cart-items grid gap-4">
-        {cartItems.length > 0 &&
-          cartItems.map((product) => (
+        {cart && cart.products.length > 0 &&
+          cart.products.map((product) => (
             <div
               key={product._id}
               className="cart-item bg-white p-4 rounded-lg shadow-md flex items-center"
@@ -47,12 +47,12 @@ function CartPage() {
                   {product.product.title}
                 </h3>
                 {/* <p className="text-gray-600">{product.description}</p> */}
-                <p className="text-gray-800 font-bold">${product.price}</p>
+                <p className="text-gray-800 font-bold">${product.price.toFixed(2).toLocaleString('en', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</p>
                 <p className="text-md font-semibold mb-2">
                   Quantity: {product.quantity}
                 </p>
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-gray-600 hover:bg-gray-700 text-white font-bold mt-5 py-2 px-4 border border-black rounded-lg"
                   onClick={() => navigate(`/products/${product.product._id}`)}
                 >
                   View Details
