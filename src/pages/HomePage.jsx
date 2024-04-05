@@ -95,7 +95,7 @@ const HomePage = () => {
     slidesToShow: 3,
     slidesToScroll: 3,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2500,
   };
 
   return (
@@ -106,7 +106,7 @@ const HomePage = () => {
         </h1>
       </header>
 
-      <div className="container mx-auto mt-10">
+      <div className="max-w-screen-xl mx-auto px-4 mt-10">
         <h2 className="text-2xl font-bold mb-4 ml-4">Featured Products</h2>
         <Slider {...settings}>
           {productsToShowcase.map((product) => (
@@ -124,16 +124,14 @@ const HomePage = () => {
             </div>
           ))}
         </Slider>
-        <div className="container ml-0 mt-8 flex justify-center ">
-          <div className="bg-white shadow-md rounded-lg p-4 w-full md:w-2/3 text-center">
-            <p className="text-xl font-bold mb-4">See all my products here!</p>
-            <Link
-              to="/products"
-              className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-20 md:px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-110"
-            >
-              Shop Now
-            </Link>
-          </div>
+        <div className="bg-white shadow-md rounded-lg p-4 mx-4 mt-8 text-center"> {/* Updated container for "Shop Now" box */}
+          <p className="text-xl font-bold mb-4">See all my products here!</p>
+          <Link
+            to="/products"
+            className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-20 md:px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-110"
+          >
+            Shop Now
+          </Link>
         </div>
       </div>
     </div>
