@@ -8,7 +8,7 @@ const HomePage = () => {
       name: 'IPhone 14 Pro Max',
       description: 'The latest flagship smartphone from Apple with advanced features and performance.',
       price: 1099.99,
-      image: '/src/images/iphone14.jpg',
+      image: 'ca-client\src\images\iphone14.jpg',
     },
     {
       id: 2,
