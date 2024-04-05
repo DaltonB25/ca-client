@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { post } from "../services/authService";
 import { useNavigate } from "react-router-dom";
-// import isAdmin from "../../../ca-server/middleware/isAdmin";
 
 function AddProduct( ) {
   const [title, setTitle] = useState("");
