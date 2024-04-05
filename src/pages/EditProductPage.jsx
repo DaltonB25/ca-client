@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { get, put } from "../services/authService";
-import axios from "axios";
+import { get, put, axiosDelete } from "../services/authService";
+// import axios from "axios";
 // import { SERVER_URL } from "../services/SERVER_URL";
-
-const API_URL = "http://localhost:4000";
 
 function EditProductPage() {
   const [title, setTitle] = useState("");
@@ -48,15 +46,16 @@ function EditProductPage() {
       category,
     };
 
-    put(`/products/${productId}`, requestBody).then((response) => {
+    put(`/products/update/${productId}`, requestBody).then((response) => {
       navigate(`/products/${productId}`);
     });
   };
 
-  const deleteProduct = () => {
-    axios.delete(`/products/${productId}`)
+
+  const deleteProduct = (e) => { 
+    e.preventDefault()
+    axiosDelete(`/products/delete/${productId}`)
       .then(() => {
-        setThisProduct(response.data);
 
         navigate("/products");
       })
