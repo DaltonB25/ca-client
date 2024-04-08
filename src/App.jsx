@@ -42,10 +42,10 @@ function App() {
 
       <Routes>
         <Route exact path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductsPage />} />
 
         <Route element={<LoggedIn />}>
 
-          <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:productId" element={<ProductDetailsPage />} />
           <Route path="/carts/:cartId" element={<CartPage />} />
           <Route path="/profile" element={<UserProfilePage />} />
