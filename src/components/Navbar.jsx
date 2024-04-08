@@ -41,11 +41,11 @@ function Navbar() {
         <Link to="/">
           <button className="text-white pr-5">Home</button>
         </Link>
-        {getToken() && (
+    
           <Link to="/products">
             <button className="text-white pr-5">Shop</button>
           </Link>
-        )}
+        
         {getToken() && admin && (
           <Link to="/admin-panel">
             <button className="text-white pr-5">Add Product</button>
@@ -108,3 +108,9 @@ function Navbar() {
 }
 
 export default Navbar;
+
+// {getToken() && (
+//   <Link to="/products">
+//     <button className="text-white pr-5">Shop</button>
+//   </Link>
+// )} i am taking the token out for products
